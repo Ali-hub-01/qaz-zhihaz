@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAZ ZHIHAZ | Фабричная мебель в наличии</title>
+    <meta name="description" content="Фабричная мебель со склада: доставка, сборка и установка за 1 день. Кухня, шкаф, спальня сразу. Оплата при получении, без предоплаты. Алматы, Астана, Караганда, Костанай, Уральск, Актобе, Шымкент.">
+    
+    <!-- Шрифты (Manrope) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Иконки (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Настройка брендинга -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Manrope', 'sans-serif'] },
+                    colors: {
+                        brand: { DEFAULT: '#D69E1C', dark: '#B58312', light: '#F4C458' },
+                        dark: '#1A1A1A'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+
+        /* === КЛЮЧЕВЫЕ АНИМАЦИИ === */
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fade-in-up 0.9s cubic-bezier(.22,1,.36,1) both; }
+
+        @keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+        .animate-bounce-slow { animation: bounce-slow 2.6s ease-in-out infinite; }
+
+        /* Мягкий моушен фона hero (Ken Burns) */
+        @keyframes hero-pan { from { transform: scale(1.08) translate(0, 0); } to { transform: scale(1.16) translate(-1.5%, -1.5%); } }
+        .hero-bg-motion { animation: hero-pan 22s ease-in-out infinite alternate; }
+
+        /* Плавающий бейдж срочности */
+        @keyframes float-soft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .float-soft { animation: float-soft 3.2s ease-in-out infinite; }
+
+        /* === SCROLL-REVEAL (прогрессивное улучшение) === */
+        /* Скрываем ТОЛЬКО когда JS активен (класс js-reveal на <html>). Без JS всё видно. */
+        .js-reveal [data-reveal] {
+            opacity: 0;
+            transform: translateY(38px);
+            transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+            transition-delay: var(--rd, 0ms);
+            will-change: opacity, transform;
+        }
+        .js-reveal [data-reveal].is-visible { opacity: 1; transform: none; }
+
+        /* === ГОРОДА: бегущая лента === */
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .marquee-track { animation: marquee 34s linear infinite; }
+        .cities-marquee:hover .marquee-track { animation-play-state: paused; }
+
+        /* Золотой градиент для акцентов */
+        .text-gold-gradient { background: linear-gradient(100deg, #F4C458, #D69E1C 45%, #B58312); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::after { content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent); transform: skewX(-20deg); transition: left .7s ease; }
+        .btn-shine:hover::after { left: 130%; }
+
+        /* === ДОСТУПНОСТЬ: уважаем reduced-motion === */
+        @media (prefers-reduced-motion: reduce) {
+            .js-reveal [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .animate-fade-in-up, .animate-bounce-slow, .hero-bg-motion, .float-soft, .marquee-track, .animate-pulse, .animate-fade-in { animation: none !important; }
+            html { scroll-behavior: auto !important; }
+        }
+    </style>
+
+    <!-- Прогрессивное улучшение: включаем скрытие для scroll-reveal только если JS есть,
+         IntersectionObserver поддерживается и пользователь не просил уменьшить анимации.
+         Иначе весь контент остаётся видимым по умолчанию. -->
+    <script>
+        (function () {
+            try {
+                if ('IntersectionObserver' in window &&
+                    !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    document.documentElement.classList.add('js-reveal');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106888880', 'ym');
+    
+        ym(106888880, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106888880" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+</head>
+<body class="bg-gray-50 text-dark font-sans antialiased">
+
+    <!-- HEADER -->
+<header class="fixed w-full top-0 z-50 glass-header shadow-sm transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-2 sm:px-4 h-20 flex items-center justify-between gap-2">
+        
+        <!-- Логотип -->
+        <a href="#" class="flex items-center gap-2 shrink-0 group">
+            <img src="img/logo.jpeg" alt="QAZ ZHIHAZ" class="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover shadow-md group-hover:scale-105 transition">
+            <div class="leading-tight hidden sm:block">
+                <div class="font-extrabold text-lg tracking-tight text-brand-dark leading-none uppercase">QAZ ZHIHAZ</div>
+                <div class="text-[9px] uppercase font-bold tracking-widest text-gray-500 text-center">Мебельный центр</div>
+            </div>
+        </a>
+        
+        <!-- Получи мебель за 3 часа -->
+        <span class="text-[11px] sm:text-sm font-semibold text-dark whitespace-nowrap">получи мебель за 3 часа</span>
+
+        <!-- ЦЕНТРАЛЬНЫЙ БЛОК: Инстаграм и КРУПНЫЙ Номер -->
+        <div class="flex items-center gap-3 ml-auto">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/qazzhihaz?igsh=MWF6NDZlM2p4NXV5dw%3D%3D&utm_source=qr" target="_blank" class="text-gray-700 hover:text-brand transition-colors text-2xl sm:text-3xl" onclick="sendEvent('click_instagram')">
+                <i class="ph ph-instagram-logo"></i>
+            </a>
+
+            <!-- Номер телефона (МАКСИМАЛЬНО КРУПНЫЙ) -->
+            <a href="tel:+77757029298" class="flex items-center gap-1 group">
+                <i class="ph-fill ph-phone text-brand text-xs sm:text-lg"></i>
+                <span class="font-black text-[13px] xs:text-[15px] sm:text-2xl text-brand-dark whitespace-nowrap tracking-tighter sm:tracking-normal">
+                    +7 775 702 92 98
+                </span>
+            </a>
+        </div>
+
+        <!-- Кнопка гамбургер -->
+        <button class="text-3xl text-dark hover:text-brand transition shrink-0 ml-1" onclick="toggleMenu()">
+            <i class="ph ph-list"></i>
+        </button>
+
+    </div>
+    
+    <!-- Мобильное меню -->
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white shadow-xl p-6 flex-col gap-4 border-t animate-fade-in">
+        <a href="#catalog" class="text-lg font-bold text-gray-800" onclick="toggleMenu()">Каталог</a>
+        <a href="#benefits" class="text-lg font-bold text-gray-800" onclick="toggleMenu()">Почему за 1 день</a>
+        <a href="#process" class="text-lg font-bold text-gray-800" onclick="toggleMenu()">Как работаем</a>
+        <a href="#cities" class="text-lg font-bold text-gray-800" onclick="toggleMenu()">Города доставки</a>
+        <a href="#warehouse" class="text-lg font-bold text-gray-800" onclick="toggleMenu()">Фото склада</a>
+        <hr>
+        <div class="flex flex-col gap-4">
+            <a href="tel:+77757029298" class="flex items-center gap-3 text-2xl font-black text-brand-dark">
+                <i class="ph-fill ph-phone"></i>
+                <span>+7 775 702 9298</span>
+            </a>
+            <a href="https://wa.me/77757029298" class="flex w-full justify-center items-center gap-2 bg-green-500 text-white px-5 py-4 rounded-xl font-bold">
+                <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+                Написать в WhatsApp
+            </a>
+        </div>
+    </div>
+</header>
+
+    <!-- HERO -->
+    <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-36 overflow-hidden">
+        <div class="absolute inset-0 bg-dark overflow-hidden">
+            <img src="./img/фон/WhatsApp Image 2026-02-12 at 15.56.30 (3).jpeg"
+                 alt="Мебель фон" class="w-full h-full object-cover opacity-40 hero-bg-motion">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark/50 via-dark/30 to-dark/90"></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10 text-center text-white">
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full mb-6 animate-fade-in-up float-soft">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-semibold tracking-wide uppercase">Склад открыт — привезём сегодня</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-6 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay:.08s">
+                Мебель нужна была <span class="text-gold-gradient">ещё вчера?</span>
+                <br class="hidden sm:block">Привезём и соберём <span class="text-brand">за 1 день</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay:.16s">
+                Кухню, шкаф и спальню — сразу, за один заезд. Доставка, сборка и установка
+                <br class="hidden md:block">в тот же день. Оплата при получении, без предоплаты.
+            </p>
+            <!-- Мини-строка формулы срочности -->
+            <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-sm md:text-base font-semibold text-white/90 mb-10 animate-fade-in-up" style="animation-delay:.24s">
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-truck text-brand"></i> Доставка</span>
+                <span class="text-brand/60">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-wrench text-brand"></i> Сборка</span>
+                <span class="text-brand/60">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-seal-check text-brand"></i> Гарантия</span>
+                <span class="text-brand/60">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-hand-coins text-brand"></i> Оплата по факту</span>
+                <span class="hidden md:inline text-brand font-extrabold">= всё за сегодня</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay:.32s">
+                <a href="#catalog" class="btn-shine w-full sm:w-auto bg-brand hover:bg-brand-dark text-white text-lg font-bold py-4 px-8 rounded-xl transition transform hover:-translate-y-1 shadow-xl shadow-brand/40">
+                    Выбрать мебель в наличии
+                </a>
+                <a href="https://wa.me/77757029298" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white text-lg font-bold py-4 px-8 rounded-xl transition whatsapp-btn">
+                    Закрыть вопрос сегодня
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST GRID -->
+    <section class="py-12 bg-white relative z-20 -mt-10 mx-4 md:mx-auto max-w-6xl rounded-2xl shadow-xl border border-gray-100">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center divide-x-0 md:divide-x divide-gray-100">
+            <div class="p-2" data-reveal><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1"><span class="count-up" data-count="1000">1000</span>+</div><div class="text-sm md:text-base text-gray-500 font-medium">Позиций в наличии</div></div>
+            <div class="p-2" data-reveal style="--rd:120ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1">3-5 ч.</div><div class="text-sm md:text-base text-gray-500 font-medium">До сборки у вас</div></div>
+            <div class="p-2" data-reveal style="--rd:240ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1"><span class="count-up" data-count="12">12</span> мес.</div><div class="text-sm md:text-base text-gray-500 font-medium">Официальная гарантия</div></div>
+            <div class="p-2" data-reveal style="--rd:360ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1">0 ₸</div><div class="text-sm md:text-base text-gray-500 font-medium">Предоплата</div></div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: Каталог (Обновленный) -->
+    <section id="catalog" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-reveal>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Популярные категории</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Нажмите на категорию, чтобы посмотреть примеры работ</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Шкафы -->
+                <div onclick="openGallery('shkafy')" data-reveal class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <img src="img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (4).jpeg" alt="Шкафы" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Шкафы</h3>
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                                <i class="ph-bold ph-eye text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Кухни -->
+                <div onclick="openGallery('kuhni')" data-reveal style="--rd:100ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <img src="img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (5).jpeg" alt="Кухни" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Кухни</h3>
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                                <i class="ph-bold ph-eye text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Спальни -->
+                <div onclick="openGallery('spalni')" data-reveal style="--rd:200ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <img src="img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (4).jpeg" alt="Спальни" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Спальни</h3>
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                                <i class="ph-bold ph-eye text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Прихожие -->
+                <div onclick="openGallery('prikhozhie')" data-reveal style="--rd:300ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <img src="img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (4).jpeg" alt="Прихожие" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Прихожие</h3>
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                                <i class="ph-bold ph-eye text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Детские -->
+                <div onclick="openGallery('detskie')" data-reveal style="--rd:400ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <img src="img/детские/WhatsApp Image 2026-02-12 at 15.51.39 (11).jpeg" alt="Детские" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="flex justify-between items-end">
+                            <h3 class="text-2xl font-bold text-white">Детские</h3>
+                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                                <i class="ph-bold ph-eye text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК: ПОЧЕМУ ЗА ОДИН ДЕНЬ (4 столпа УТП) -->
+    <section id="benefits" class="py-20 bg-dark text-white overflow-hidden relative">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-14" data-reveal>
+                <span class="inline-block text-brand font-bold tracking-widest uppercase text-sm mb-3">Почему за один день</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Закрываем вопрос с мебелью сегодня</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Кухня, шкаф и спальня — за один заезд. Всё продумано так, чтобы вы не ждали и не рисковали.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Столп 1 -->
+                <div data-reveal class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-warehouse"></i></div>
+                    <h3 class="text-lg font-bold mb-2">Напрямую со склада</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Работаем онлайн, без наценки шоурумов — доступная цена без потери качества.</p>
+                </div>
+                <!-- Столп 2 -->
+                <div data-reveal style="--rd:120ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-seal-check"></i></div>
+                    <h3 class="text-lg font-bold mb-2">Только фабрики и цеха</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Годовая гарантия. Через год мебель не развалится и не поведёт — отвечаем за качество.</p>
+                </div>
+                <!-- Столп 3 -->
+                <div data-reveal style="--rd:240ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-lightning"></i></div>
+                    <h3 class="text-lg font-bold mb-2">Всё за один заезд</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Кухня + шкаф + спальня сразу. Привозим и собираем за ~3 часа — в день заказа.</p>
+                </div>
+                <!-- Столп 4 -->
+                <div data-reveal style="--rd:360ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-hand-coins"></i></div>
+                    <h3 class="text-lg font-bold mb-2">Оплата при получении</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">0 ₸ предоплаты. Осматриваете дома, всё нравится — платите по факту. Никакого риска.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12" data-reveal>
+                <a href="https://wa.me/77757029298" class="btn-shine inline-flex items-center gap-3 bg-brand hover:bg-brand-dark text-white font-bold py-4 px-8 rounded-xl transition transform hover:-translate-y-1 shadow-xl shadow-brand/30 whatsapp-btn">
+                    <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+                    Хочу закрыть вопрос сегодня
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-dark mb-16" data-reveal>Как мы работаем без риска</h2>
+            <div class="grid md:grid-cols-4 gap-8 relative">
+                <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-gray-100 -z-10"></div>
+                <div class="relative text-center group" data-reveal><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">1</div><h3 class="text-xl font-bold mb-3">Выбор онлайн</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Отправляем вам живые фото и замеры.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:120ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">2</div><h3 class="text-xl font-bold mb-3">Быстрая доставка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Привозим сегодня — в день заказа.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:240ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">3</div><h3 class="text-xl font-bold mb-3">Осмотр и сборка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Распаковываем, собираем и проверяем при вас.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:360ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">4</div><h3 class="text-xl font-bold mb-3">Оплата</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Если всё устраивает — оплачиваете на месте.</p></div>
+            </div>
+        </div>
+    </section>
+    <!-- БЛОК: ОТЗЫВЫ -->
+    <section id="reviews" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-reveal>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Что говорят наши клиенты</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Мы дорожим своей репутацией. Вот реальные отзывы из нашей переписки в WhatsApp.</p>
+            </div>
+
+            <!-- ТЕКСТОВЫЕ ОТЗЫВЫ (из WhatsApp переписок) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+
+                <!-- Отзыв 1 (Про спальню) -->
+                <div data-reveal class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                    <div class="flex text-brand mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                        "Сәлеметсіз бе! Үлкен рахмет, жиһаз өте керемет шықты. Бізге қатты ұнады. Саудаңыздың жемісін көріңіз!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">А</div>
+                        <div>
+                            <p class="font-bold text-sm">Клиент (Алматы)</p>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Спальный гарнитур</p>
+                        </div>
+                    </div>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                </div>
+
+                <!-- Отзыв 2 (Про шкаф) -->
+                <div data-reveal style="--rd:120ms" class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                    <div class="flex text-brand mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                        "Добрый вечер! Кстати, шкаф хороший, прямо очень понравился. Спасибо большое за качество и сборку!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">К</div>
+                        <div>
+                            <p class="font-bold text-sm">Клиент</p>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Шкаф-купе</p>
+                        </div>
+                    </div>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                </div>
+
+                <!-- Отзыв 3 (Про кухню/общий) -->
+                <div data-reveal style="--rd:240ms" class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                    <div class="flex text-brand mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                        "Рахмет сізге! Бәрі жақсы болды, тамаша, әдемі. 1 күнде бәрін бітіріп бердіңіздер. Жұмыстарыңызға береке берсін!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">М</div>
+                        <div>
+                            <p class="font-bold text-sm">Клиент</p>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Кухонный гарнитур</p>
+                        </div>
+                    </div>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                </div>
+            </div>
+
+            <!-- ВИДЕО ОТЗЫВЫ (9:16) -->
+            <div class="text-center mb-10" data-reveal>
+                <h3 class="text-2xl font-extrabold text-dark">Видео-обзоры от клиентов</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Видео 1 -->
+                <div data-reveal class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                    <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-1.jpg">
+                        <source src="./video/1.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <!-- Видео 2 -->
+                <div data-reveal style="--rd:120ms" class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                    <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-2.jpg">
+                        <source src="./video/2.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <!-- Видео 3 -->
+                <div data-reveal style="--rd:240ms" class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                    <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-3.jpg">
+                        <source src="./video/3.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CITIES: Города доставки -->
+    <section id="cities" class="py-20 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-reveal>
+                <span class="inline-flex items-center gap-2 bg-brand/10 text-brand-dark font-bold tracking-wide uppercase text-xs px-4 py-1.5 rounded-full mb-4">
+                    <i class="ph-fill ph-map-pin"></i> Доставка + установка в день заказа
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Города доставки</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Привозим, собираем и устанавливаем в тот же день в 7 городах Казахстана.</p>
+            </div>
+
+            <!-- Бегущая лента городов -->
+            <div class="cities-marquee relative w-full overflow-hidden mb-10" data-reveal
+                 style="mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);">
+                <div class="marquee-track flex w-max gap-4">
+                    <!-- Группа 1 -->
+                    <div class="flex gap-4 shrink-0 pr-4">
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
+                    </div>
+                    <!-- Группа 2 (дубликат для бесшовной ленты) -->
+                    <div class="flex gap-4 shrink-0 pr-4" aria-hidden="true">
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сетка-подтверждение (всегда читаемая) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 max-w-5xl mx-auto">
+                <div data-reveal class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Алматы</span></div>
+                <div data-reveal style="--rd:70ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Астана</span></div>
+                <div data-reveal style="--rd:140ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Караганда</span></div>
+                <div data-reveal style="--rd:210ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Костанай</span></div>
+                <div data-reveal style="--rd:280ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Уральск</span></div>
+                <div data-reveal style="--rd:350ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Актобе</span></div>
+                <div data-reveal style="--rd:420ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Шымкент</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WAREHOUSE -->
+    <section id="warehouse" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-dark mb-12" data-reveal>Реальность, а не картинки</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <img src="./img/webp/warehouse1.webp" data-reveal loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Склад">
+                <img src="./img/webp/warehouse2.webp" data-reveal style="--rd:100ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Коробки">
+                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.44.44 (2).jpeg" data-reveal style="--rd:200ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Мебель">
+                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.51.39 (4).jpeg" data-reveal style="--rd:300ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Погрузка">
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacts" class="bg-dark text-gray-400 py-16">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <img src="img/logo.jpeg" alt="Logo" class="w-10 h-10 rounded">
+                    <span class="text-white font-bold text-xl">QAZ ZHIHAZ</span>
+                </div>
+                <p class="text-sm mb-4">Качественная мебель с доставкой по всему Казахстану.</p>
+                <p class="text-xs opacity-50">© 2026 QAZ ZHIHAZ. Все права защищены.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">Контакты</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3"><i class="ph-fill ph-map-pin text-brand text-xl mt-1"></i><span>г. Алматы, ул. Уральская 29</span></li>
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-phone text-brand text-xl"></i><a href="tel:+77757029298" class="hover:text-white transition">+7 (775) 702-92-98</a></li>
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-envelope text-brand text-xl"></i><a href="mailto:info@qazzhihaz.kz" class="hover:text-white transition">info@qazzhihaz.kz</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">Мы в соцсетях</h4>
+                <div class="flex gap-4 mb-6">
+                    <a href="https://www.instagram.com/qazzhihaz?igsh=MWF6NDZlM2p4NXV5dw%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/77757029298" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition animate-bounce-slow flex items-center justify-center whatsapp-float">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <!-- ANALYTICS & LOGIC -->
+    <script>
+        // === ВСТАВИЛ ТВОЙ ID ===
+        const YA_COUNTER_FOR_EVENTS = 106816491; 
+
+        // Функция отправки событий
+        function sendEvent(eventName) {
+            if (typeof ym !== 'undefined' && YA_COUNTER_FOR_EVENTS !== 0) {
+                ym(YA_COUNTER_FOR_EVENTS, 'reachGoal', eventName);
+                console.log('Event sent:', eventName);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. UTM ПАРСЕР
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmSource = urlParams.get('utm_source');
+            
+            if (utmSource) {
+                const waLinks = document.querySelectorAll('a[href^="https://wa.me"]');
+                const addition = ` [Источник: ${utmSource}]`;
+                
+                waLinks.forEach(link => {
+                    let href = link.getAttribute('href');
+                    if (href.includes('text=')) {
+                        link.setAttribute('href', href + encodeURIComponent(addition));
+                    } else {
+                        link.setAttribute('href', href + '?text=' + encodeURIComponent("Здравствуйте" + addition));
+                    }
+                });
+            }
+
+            // 2. ОТСЛЕЖИВАНИЕ КЛИКОВ WHATSAPP
+            const allWaLinks = document.querySelectorAll('a[href^="https://wa.me"]');
+            allWaLinks.forEach(link => {
+                link.addEventListener('click', () => sendEvent('whatsapp_click'));
+            });
+
+            // 3. ОТСЛЕЖИВАНИЕ ПРОСМОТРА БЛОКОВ (SCROLL)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        sendEvent('view_' + id);
+                        observer.unobserve(entry.target); // Отправляем 1 раз
+                    }
+                });
+            }, { threshold: 0.5 }); // Считается просмотром, если видно 50% блока
+
+            const sections = ['catalog', 'process', 'warehouse', 'contacts'];
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+            
+            // 4. МОБИЛЬНОЕ МЕНЮ
+            window.toggleMenu = function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            }
+            
+            // 5. ТЕНЬ ХЕДЕРА
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('navbar');
+                window.scrollY > 50 ? header.classList.add('shadow-md') : header.classList.remove('shadow-md');
+            });
+
+            // 6. SCROLL-REVEAL + COUNT-UP (прогрессивное улучшение)
+            function runCountUp(el) {
+                if (el.dataset.counted) return;
+                el.dataset.counted = '1';
+                const target = parseInt(el.dataset.count, 10);
+                if (isNaN(target)) return;
+                const duration = 1400;
+                const startTime = performance.now();
+                function tick(now) {
+                    const p = Math.min((now - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+                    el.textContent = Math.round(target * eased);
+                    if (p < 1) requestAnimationFrame(tick);
+                    else el.textContent = target;
+                }
+                requestAnimationFrame(tick);
+            }
+
+            const revealEls = document.querySelectorAll('[data-reveal]');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                // Без анимаций — показываем всё сразу и проставляем финальные числа
+                revealEls.forEach(el => el.classList.add('is-visible'));
+                document.querySelectorAll('.count-up').forEach(runCountUp);
+            } else {
+                const revObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            const counters = entry.target.querySelectorAll('.count-up');
+                            counters.forEach(runCountUp);
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+                revealEls.forEach(el => revObserver.observe(el));
+            }
+        });
+    </script>
+
+    <!-- ГАЛЕРЕЯ (MODAL) -->
+    <div id="gallery-modal" class="fixed inset-0 z-[100] hidden bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center p-4">
+        <!-- Кнопка закрытия -->
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-4xl hover:text-brand transition z-[110]">
+            <i class="ph ph-x"></i>
+        </button>
+
+        <!-- Основной контент галереи -->
+        <div class="relative w-full max-w-5xl flex items-center justify-center">
+            <!-- Кнопки навигации -->
+            <button onclick="prevImage()" class="absolute left-0 md:-left-16 text-white text-5xl hover:text-brand transition p-2">
+                <i class="ph ph-caret-left"></i>
+            </button>
+
+            <div class="w-full flex flex-col items-center">
+                <img id="gallery-img" src="" alt="Furniture" class="max-h-[70vh] w-auto rounded-lg shadow-2xl object-contain animate-fade-in">
+                <p id="gallery-counter" class="text-gray-400 mt-4 font-medium tracking-widest text-sm"></p>
+                
+                <!-- Кнопка действия внутри галереи -->
+                <a id="gallery-wa-btn" href="" target="_blank" class="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full flex items-center gap-3 shadow-lg transition transform hover:scale-105">
+                    <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+                    <span>Заказать такую же</span>
+                </a>
+            </div>
+
+            <button onclick="nextImage()" class="absolute right-0 md:-right-16 text-white text-5xl hover:text-brand transition p-2">
+                <i class="ph ph-caret-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    </style>
+
+    <script>
+        // --- ДАННЫЕ ГАЛЕРЕИ ---
+        const galleryData = {
+            shkafy: [
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (4).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (1).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (2).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (3).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (5).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (6).jpeg',
+                'img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32.jpeg'
+            ],
+            kuhni: [
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (5).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (1).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (2).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (3).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (4).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (6).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (7).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (8).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (9).jpeg',
+                'img/кухни/WhatsApp Image 2026-02-16 at 19.48.35.jpeg'
+            ],
+            spalni: [
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (4).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (1).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (2).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (3).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (5).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (6).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (7).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (8).jpeg',
+                'img/спальня/WhatsApp Image 2026-02-16 at 19.47.32.jpeg'
+            ],
+            prikhozhie: [
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (4).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (1).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (2).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (3).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (5).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (6).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (7).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (8).jpeg',
+                'img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05.jpeg'
+            ],
+            detskie: [
+                'img/детские/WhatsApp Image 2026-02-12 at 15.51.39 (11).jpeg',
+                'img/детские/WhatsApp Image 2026-02-14 at 12.06.07.jpeg',
+                'img/детские/WhatsApp Image 2026-02-14 at 12.10.57.jpeg',
+                'img/детские/WhatsApp Image 2026-02-14 at 12.11.17.jpeg'
+            ]
+        };
+
+        let currentCategory = '';
+        let currentIndex = 0;
+
+        const modal = document.getElementById('gallery-modal');
+        const galleryImg = document.getElementById('gallery-img');
+        const counter = document.getElementById('gallery-counter');
+        const waBtn = document.getElementById('gallery-wa-btn');
+
+        function openGallery(category) {
+            if (!galleryData[category] || galleryData[category].length === 0) return;
+            currentCategory = category;
+            currentIndex = 0;
+            updateGallery();
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Запретить скролл сайта
+
+            // АНАЛИТИКА: Отправляем событие в Яндекс.Метрику
+            sendEvent('open_gallery_' + category);
+        }
+
+        function updateGallery() {
+            const images = galleryData[currentCategory];
+            galleryImg.src = images[currentIndex];
+            counter.innerText = `${currentIndex + 1} / ${images.length}`;
+            
+            // Обновляем ссылку WhatsApp с названием категории
+            const text = encodeURIComponent(`Здравствуйте! Меня заинтересовала мебель из категории: ${currentCategory}.`);
+            waBtn.href = `https://wa.me/77757029298?text=${text}`;
+        }
+
+        function nextImage() {
+            const images = galleryData[currentCategory];
+            currentIndex = (currentIndex + 1) % images.length;
+            updateGallery();
+        }
+
+        function prevImage() {
+            const images = galleryData[currentCategory];
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateGallery();
+        }
+
+        function closeGallery() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Вернуть скролл
+        }
+
+        // Закрытие по клику на фон
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeGallery();
+            });
+        }
+
+        // Навигация кнопками клавиатуры
+        document.addEventListener('keydown', (e) => {
+            if (!modal || modal.classList.contains('hidden')) return;
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'Escape') closeGallery();
+        });
+    </script>
+</body>
+</html>
