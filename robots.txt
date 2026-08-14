@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qaz-zhihaz.kz/sitemap.xml
