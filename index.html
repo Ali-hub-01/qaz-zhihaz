@@ -6,10 +6,10 @@
     <title>QAZ ZHIHAZ | Фабричная мебель в наличии</title>
     <meta name="description" content="Фабричная мебель со склада: доставка, сборка и установка за 1 день. Кухня, шкаф, спальня сразу. Оплата при получении, без предоплаты. Алматы, Астана, Караганда, Костанай, Уральск, Актобе, Шымкент.">
     
-    <!-- Шрифты (Manrope) -->
+    <!-- Шрифты (Manrope + Playfair Display для заголовков) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
     
     <!-- Иконки (Phosphor Icons) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -22,18 +22,60 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Manrope', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['"Playfair Display"', 'Georgia', 'serif']
+                    },
                     colors: {
                         brand: { DEFAULT: '#D69E1C', dark: '#B58312', light: '#F4C458' },
-                        dark: '#1A1A1A'
-                    }
+                        dark: '#161514',
+                        graphite: { DEFAULT: '#1c1a17', deep: '#100f0d', soft: '#26231f' },
+                        cream: { DEFAULT: '#faf7f1', warm: '#f4efe6', deep: '#ece5d7' }
+                    },
+                    letterSpacing: { tightest: '-.045em' }
                 }
             }
         }
     </script>
 
     <style>
-        .glass-header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+        .glass-header { background: rgba(250, 247, 241, 0.82); backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%); border-bottom: 1px solid rgba(214,158,28,0.10); }
+
+        /* === ТИПОГРАФИКА === */
+        .font-display { font-family: "Playfair Display", Georgia, serif; }
+        .h-display { font-family: "Playfair Display", Georgia, serif; font-weight: 700; letter-spacing: -0.01em; line-height: 1.06; }
+        .eyebrow { font-family: 'Manrope', sans-serif; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.72rem; }
+
+        /* Тонкий золотой разделитель под eyebrow */
+        .gold-rule { display:inline-block; width: 56px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #D69E1C, transparent); }
+
+        /* === ФОНЫ И ГЛУБИНА === */
+        .section-cream { background:
+            radial-gradient(120% 80% at 50% -10%, rgba(214,158,28,0.06), transparent 60%),
+            linear-gradient(180deg, #faf7f1, #f4efe6); }
+        .section-graphite { background:
+            radial-gradient(90% 70% at 15% 0%, rgba(214,158,28,0.10), transparent 55%),
+            radial-gradient(80% 60% at 90% 100%, rgba(214,158,28,0.08), transparent 55%),
+            linear-gradient(160deg, #1c1a17 0%, #100f0d 100%); }
+
+        /* === ПОВЕРХНОСТИ / ТЕНИ === */
+        .shadow-luxe { box-shadow: 0 1px 2px rgba(26,22,15,.04), 0 18px 40px -18px rgba(26,22,15,.22), 0 8px 16px -12px rgba(26,22,15,.12); }
+        .shadow-luxe-lg { box-shadow: 0 2px 4px rgba(26,22,15,.05), 0 40px 80px -32px rgba(26,22,15,.32), 0 16px 32px -20px rgba(26,22,15,.18); }
+        .card-hairline { border: 1px solid rgba(26,22,15,0.07); }
+        .ring-gold { box-shadow: inset 0 0 0 1px rgba(214,158,28,0.22); }
+
+        /* === ЗОЛОТЫЕ АКЦЕНТЫ === */
+        .text-gold-gradient { background: linear-gradient(100deg, #F4C458, #E0A82E 40%, #B58312); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .bg-gold-gradient { background: linear-gradient(135deg, #F4C458 0%, #D69E1C 50%, #B58312 100%); }
+        .btn-gold { background: linear-gradient(135deg, #F4C458 0%, #D69E1C 48%, #B58312 100%); box-shadow: 0 10px 24px -8px rgba(214,158,28,.55), inset 0 1px 0 rgba(255,255,255,.35); }
+        .btn-gold:hover { box-shadow: 0 16px 32px -8px rgba(214,158,28,.65), inset 0 1px 0 rgba(255,255,255,.4); }
+
+        /* Золотой хайлайт-обвод для тёмных карточек */
+        .card-dark { background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 24px 48px -24px rgba(0,0,0,.6); }
+        .card-dark:hover { border-color: rgba(214,158,28,0.35); }
+
+        /* === КЛЮЧЕВЫЕ АНИМАЦИИ === */
 
         /* === КЛЮЧЕВЫЕ АНИМАЦИИ === */
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
@@ -75,7 +117,7 @@
         /* === ДОСТУПНОСТЬ: уважаем reduced-motion === */
         @media (prefers-reduced-motion: reduce) {
             .js-reveal [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
-            .animate-fade-in-up, .animate-bounce-slow, .hero-bg-motion, .float-soft, .marquee-track, .animate-pulse, .animate-fade-in { animation: none !important; }
+            .animate-fade-in-up, .animate-bounce-slow, .hero-bg-motion, .float-soft, .marquee-track, .animate-pulse, .animate-ping, .animate-fade-in { animation: none !important; }
             html { scroll-behavior: auto !important; }
         }
     </style>
@@ -109,7 +151,7 @@
     <!-- /Yandex.Metrika counter -->
 
 </head>
-<body class="bg-gray-50 text-dark font-sans antialiased">
+<body class="bg-cream text-dark font-sans antialiased">
 
     <!-- HEADER -->
 <header class="fixed w-full top-0 z-50 glass-header shadow-sm transition-all duration-300" id="navbar">
@@ -120,12 +162,12 @@
             <img src="img/logo.jpeg" alt="QAZ ZHIHAZ" class="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover shadow-md group-hover:scale-105 transition">
             <div class="leading-tight hidden sm:block">
                 <div class="font-extrabold text-lg tracking-tight text-brand-dark leading-none uppercase">QAZ ZHIHAZ</div>
-                <div class="text-[9px] uppercase font-bold tracking-widest text-gray-500 text-center">Мебельный центр</div>
+                <div class="text-[9px] uppercase font-bold tracking-[0.2em] text-gray-500 text-center">Мебельный центр</div>
             </div>
         </a>
-        
+
         <!-- Получи мебель за 3 часа -->
-        <span class="text-[11px] sm:text-sm font-semibold text-dark whitespace-nowrap">получи мебель за 3 часа</span>
+        <span class="inline-flex items-center gap-1 text-[10px] sm:text-sm font-semibold text-dark whitespace-nowrap"><i class="ph-fill ph-lightning text-brand"></i>получи мебель за 3 часа</span>
 
         <!-- ЦЕНТРАЛЬНЫЙ БЛОК: Инстаграм и КРУПНЫЙ Номер -->
         <div class="flex items-center gap-3 ml-auto">
@@ -172,41 +214,45 @@
 </header>
 
     <!-- HERO -->
-    <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-36 overflow-hidden">
-        <div class="absolute inset-0 bg-dark overflow-hidden">
+    <section class="relative pt-36 pb-28 lg:pt-52 lg:pb-40 overflow-hidden">
+        <div class="absolute inset-0 bg-graphite-deep overflow-hidden">
             <img src="./img/фон/WhatsApp Image 2026-02-12 at 15.56.30 (3).jpeg"
-                 alt="Мебель фон" class="w-full h-full object-cover opacity-40 hero-bg-motion">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark/50 via-dark/30 to-dark/90"></div>
+                 alt="Мебель фон" class="w-full h-full object-cover opacity-45 hero-bg-motion">
+            <!-- Кинематографичный многослойный оверлей -->
+            <div class="absolute inset-0 bg-gradient-to-b from-graphite-deep/70 via-graphite/45 to-graphite-deep/95"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-graphite-deep/80 via-transparent to-graphite-deep/60"></div>
+            <div class="absolute inset-0" style="background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(16,15,13,0.55) 100%);"></div>
+            <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-cream to-transparent"></div>
         </div>
         <div class="container mx-auto px-4 relative z-10 text-center text-white">
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full mb-6 animate-fade-in-up float-soft">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span class="text-sm font-semibold tracking-wide uppercase">Склад открыт — привезём сегодня</span>
+            <div class="inline-flex items-center gap-2.5 bg-white/[0.07] backdrop-blur-md border border-white/15 px-5 py-2 rounded-full mb-8 animate-fade-in-up float-soft ring-gold">
+                <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-70"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span></span>
+                <span class="text-xs font-semibold tracking-[0.18em] uppercase text-white/90">Склад открыт — привезём сегодня</span>
             </div>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] mb-6 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay:.08s">
-                Мебель нужна была <span class="text-gold-gradient">ещё вчера?</span>
-                <br class="hidden sm:block">Привезём и соберём <span class="text-brand">за 1 день</span>
+            <h1 class="h-display text-[2.6rem] leading-[1.07] md:text-6xl lg:text-[4.7rem] mb-7 max-w-4xl mx-auto animate-fade-in-up" style="animation-delay:.08s">
+                Мебель нужна была <span class="text-gold-gradient italic">ещё вчера?</span>
+                <br class="hidden sm:block">Привезём и соберём <span class="text-gold-gradient">за 1 день</span>
             </h1>
-            <p class="text-lg md:text-xl text-gray-200 mb-4 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay:.16s">
+            <p class="text-lg md:text-xl text-gray-300/90 mb-6 max-w-2xl mx-auto leading-relaxed font-light animate-fade-in-up" style="animation-delay:.16s">
                 Кухню, шкаф и спальню — сразу, за один заезд. Доставка, сборка и установка
                 <br class="hidden md:block">в тот же день. Оплата при получении, без предоплаты.
             </p>
             <!-- Мини-строка формулы срочности -->
-            <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-sm md:text-base font-semibold text-white/90 mb-10 animate-fade-in-up" style="animation-delay:.24s">
-                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-truck text-brand"></i> Доставка</span>
-                <span class="text-brand/60">+</span>
-                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-wrench text-brand"></i> Сборка</span>
-                <span class="text-brand/60">+</span>
-                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-seal-check text-brand"></i> Гарантия</span>
-                <span class="text-brand/60">+</span>
-                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-hand-coins text-brand"></i> Оплата по факту</span>
-                <span class="hidden md:inline text-brand font-extrabold">= всё за сегодня</span>
+            <div class="inline-flex flex-wrap justify-center items-center gap-x-3 gap-y-2 text-sm md:text-base font-semibold text-white/90 mb-11 px-5 py-3 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-sm animate-fade-in-up" style="animation-delay:.24s">
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-truck text-brand-light"></i> Доставка</span>
+                <span class="text-brand/70 font-light">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-wrench text-brand-light"></i> Сборка</span>
+                <span class="text-brand/70 font-light">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-seal-check text-brand-light"></i> Гарантия</span>
+                <span class="text-brand/70 font-light">+</span>
+                <span class="inline-flex items-center gap-1.5"><i class="ph-fill ph-hand-coins text-brand-light"></i> Оплата по факту</span>
+                <span class="hidden md:inline-flex items-center gap-1.5 text-gold-gradient font-extrabold">= всё за сегодня</span>
             </div>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay:.32s">
-                <a href="#catalog" class="btn-shine w-full sm:w-auto bg-brand hover:bg-brand-dark text-white text-lg font-bold py-4 px-8 rounded-xl transition transform hover:-translate-y-1 shadow-xl shadow-brand/40">
+                <a href="#catalog" class="btn-shine btn-gold w-full sm:w-auto text-dark text-lg font-extrabold py-4 px-9 rounded-2xl transition-all duration-300 transform hover:-translate-y-1">
                     Выбрать мебель в наличии
                 </a>
-                <a href="https://wa.me/77757029298" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur border border-white/30 text-white text-lg font-bold py-4 px-8 rounded-xl transition whatsapp-btn">
+                <a href="https://wa.me/77757029298" class="w-full sm:w-auto bg-white/[0.07] hover:bg-white/15 backdrop-blur border border-white/25 hover:border-white/40 text-white text-lg font-bold py-4 px-9 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 whatsapp-btn">
                     Закрыть вопрос сегодня
                 </a>
             </div>
@@ -214,33 +260,38 @@
     </section>
 
     <!-- TRUST GRID -->
-    <section class="py-12 bg-white relative z-20 -mt-10 mx-4 md:mx-auto max-w-6xl rounded-2xl shadow-xl border border-gray-100">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center divide-x-0 md:divide-x divide-gray-100">
-            <div class="p-2" data-reveal><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1"><span class="count-up" data-count="1000">1000</span>+</div><div class="text-sm md:text-base text-gray-500 font-medium">Позиций в наличии</div></div>
-            <div class="p-2" data-reveal style="--rd:120ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1">3-5 ч.</div><div class="text-sm md:text-base text-gray-500 font-medium">До сборки у вас</div></div>
-            <div class="p-2" data-reveal style="--rd:240ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1"><span class="count-up" data-count="12">12</span> мес.</div><div class="text-sm md:text-base text-gray-500 font-medium">Официальная гарантия</div></div>
-            <div class="p-2" data-reveal style="--rd:360ms"><div class="text-3xl md:text-4xl font-extrabold text-brand mb-1">0 ₸</div><div class="text-sm md:text-base text-gray-500 font-medium">Предоплата</div></div>
+    <section class="relative z-20 -mt-14 mx-4 md:mx-auto max-w-6xl">
+        <div class="relative bg-white/95 backdrop-blur rounded-3xl shadow-luxe-lg card-hairline py-11 overflow-hidden">
+            <div class="absolute top-0 inset-x-0 h-1 bg-gold-gradient"></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center divide-x-0 md:divide-x divide-cream-deep">
+                <div class="p-2" data-reveal><div class="h-display text-4xl md:text-5xl text-gold-gradient mb-1.5"><span class="count-up" data-count="1000">1000</span>+</div><div class="text-sm md:text-base text-gray-500 font-medium tracking-wide">Позиций в наличии</div></div>
+                <div class="p-2" data-reveal style="--rd:120ms"><div class="h-display text-4xl md:text-5xl text-gold-gradient mb-1.5">3-5 ч.</div><div class="text-sm md:text-base text-gray-500 font-medium tracking-wide">До сборки у вас</div></div>
+                <div class="p-2" data-reveal style="--rd:240ms"><div class="h-display text-4xl md:text-5xl text-gold-gradient mb-1.5"><span class="count-up" data-count="12">12</span> мес.</div><div class="text-sm md:text-base text-gray-500 font-medium tracking-wide">Официальная гарантия</div></div>
+                <div class="p-2" data-reveal style="--rd:360ms"><div class="h-display text-4xl md:text-5xl text-gold-gradient mb-1.5">0 ₸</div><div class="text-sm md:text-base text-gray-500 font-medium tracking-wide">Предоплата</div></div>
+            </div>
         </div>
     </section>
 
     <!-- БЛОК 3: Каталог (Обновленный) -->
-    <section id="catalog" class="py-20 bg-gray-50">
+    <section id="catalog" class="py-24 section-cream">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12" data-reveal>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Популярные категории</h2>
-                <p class="text-gray-500 max-w-xl mx-auto">Нажмите на категорию, чтобы посмотреть примеры работ</p>
+            <div class="text-center mb-14" data-reveal>
+                <div class="mb-4"><span class="gold-rule"></span></div>
+                <span class="eyebrow text-brand-dark block mb-3">Каталог со склада</span>
+                <h2 class="h-display text-4xl md:text-5xl text-dark mb-4">Популярные категории</h2>
+                <p class="text-gray-500 max-w-xl mx-auto text-lg font-light">Нажмите на категорию, чтобы посмотреть примеры работ</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
                 <!-- Шкафы -->
-                <div onclick="openGallery('shkafy')" data-reveal class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <div onclick="openGallery('shkafy')" data-reveal class="group relative block h-64 sm:h-80 rounded-[1.4rem] overflow-hidden shadow-luxe hover:shadow-luxe-lg transition-all duration-500 cursor-pointer card-hairline">
                     <img src="img/шкаф/WhatsApp Image 2026-02-16 at 19.46.32 (4).jpeg" alt="Шкафы" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-graphite-deep/90 via-graphite/25 to-transparent group-hover:from-graphite-deep/95 transition-colors duration-500"></div>
                     <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="bg-gold-gradient text-dark text-[11px] font-extrabold tracking-wider px-2.5 py-1 rounded-md inline-block mb-3 shadow-md">В НАЛИЧИИ</div>
                         <div class="flex justify-between items-end">
-                            <h3 class="text-2xl font-bold text-white">Шкафы</h3>
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                            <h3 class="h-display text-[1.7rem] text-white drop-shadow-sm">Шкафы</h3>
+                            <div class="w-11 h-11 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white group-hover:bg-gold-gradient group-hover:text-dark group-hover:border-transparent group-hover:scale-110 transition-all duration-300">
                                 <i class="ph-bold ph-eye text-xl"></i>
                             </div>
                         </div>
@@ -248,14 +299,14 @@
                 </div>
 
                 <!-- Кухни -->
-                <div onclick="openGallery('kuhni')" data-reveal style="--rd:100ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <div onclick="openGallery('kuhni')" data-reveal style="--rd:100ms" class="group relative block h-64 sm:h-80 rounded-[1.4rem] overflow-hidden shadow-luxe hover:shadow-luxe-lg transition-all duration-500 cursor-pointer card-hairline">
                     <img src="img/кухни/WhatsApp Image 2026-02-16 at 19.48.35 (5).jpeg" alt="Кухни" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-graphite-deep/90 via-graphite/25 to-transparent group-hover:from-graphite-deep/95 transition-colors duration-500"></div>
                     <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="bg-gold-gradient text-dark text-[11px] font-extrabold tracking-wider px-2.5 py-1 rounded-md inline-block mb-3 shadow-md">В НАЛИЧИИ</div>
                         <div class="flex justify-between items-end">
-                            <h3 class="text-2xl font-bold text-white">Кухни</h3>
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                            <h3 class="h-display text-[1.7rem] text-white drop-shadow-sm">Кухни</h3>
+                            <div class="w-11 h-11 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white group-hover:bg-gold-gradient group-hover:text-dark group-hover:border-transparent group-hover:scale-110 transition-all duration-300">
                                 <i class="ph-bold ph-eye text-xl"></i>
                             </div>
                         </div>
@@ -263,14 +314,14 @@
                 </div>
 
                 <!-- Спальни -->
-                <div onclick="openGallery('spalni')" data-reveal style="--rd:200ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <div onclick="openGallery('spalni')" data-reveal style="--rd:200ms" class="group relative block h-64 sm:h-80 rounded-[1.4rem] overflow-hidden shadow-luxe hover:shadow-luxe-lg transition-all duration-500 cursor-pointer card-hairline">
                     <img src="img/спальня/WhatsApp Image 2026-02-16 at 19.47.32 (4).jpeg" alt="Спальни" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-graphite-deep/90 via-graphite/25 to-transparent group-hover:from-graphite-deep/95 transition-colors duration-500"></div>
                     <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="bg-gold-gradient text-dark text-[11px] font-extrabold tracking-wider px-2.5 py-1 rounded-md inline-block mb-3 shadow-md">В НАЛИЧИИ</div>
                         <div class="flex justify-between items-end">
-                            <h3 class="text-2xl font-bold text-white">Спальни</h3>
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                            <h3 class="h-display text-[1.7rem] text-white drop-shadow-sm">Спальни</h3>
+                            <div class="w-11 h-11 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white group-hover:bg-gold-gradient group-hover:text-dark group-hover:border-transparent group-hover:scale-110 transition-all duration-300">
                                 <i class="ph-bold ph-eye text-xl"></i>
                             </div>
                         </div>
@@ -278,14 +329,14 @@
                 </div>
                 
                 <!-- Прихожие -->
-                <div onclick="openGallery('prikhozhie')" data-reveal style="--rd:300ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <div onclick="openGallery('prikhozhie')" data-reveal style="--rd:300ms" class="group relative block h-64 sm:h-80 rounded-[1.4rem] overflow-hidden shadow-luxe hover:shadow-luxe-lg transition-all duration-500 cursor-pointer card-hairline">
                     <img src="img/Прихожие/WhatsApp Image 2026-02-16 at 19.49.05 (4).jpeg" alt="Прихожие" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-graphite-deep/90 via-graphite/25 to-transparent group-hover:from-graphite-deep/95 transition-colors duration-500"></div>
                     <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="bg-gold-gradient text-dark text-[11px] font-extrabold tracking-wider px-2.5 py-1 rounded-md inline-block mb-3 shadow-md">В НАЛИЧИИ</div>
                         <div class="flex justify-between items-end">
-                            <h3 class="text-2xl font-bold text-white">Прихожие</h3>
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                            <h3 class="h-display text-[1.7rem] text-white drop-shadow-sm">Прихожие</h3>
+                            <div class="w-11 h-11 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white group-hover:bg-gold-gradient group-hover:text-dark group-hover:border-transparent group-hover:scale-110 transition-all duration-300">
                                 <i class="ph-bold ph-eye text-xl"></i>
                             </div>
                         </div>
@@ -293,14 +344,14 @@
                 </div>
 
                 <!-- Детские -->
-                <div onclick="openGallery('detskie')" data-reveal style="--rd:400ms" class="group relative block h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <div onclick="openGallery('detskie')" data-reveal style="--rd:400ms" class="group relative block h-64 sm:h-80 rounded-[1.4rem] overflow-hidden shadow-luxe hover:shadow-luxe-lg transition-all duration-500 cursor-pointer card-hairline">
                     <img src="img/детские/WhatsApp Image 2026-02-12 at 15.51.39 (11).jpeg" alt="Детские" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-graphite-deep/90 via-graphite/25 to-transparent group-hover:from-graphite-deep/95 transition-colors duration-500"></div>
                     <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <div class="bg-brand text-white text-xs font-bold px-2 py-1 rounded inline-block mb-2">В НАЛИЧИИ</div>
+                        <div class="bg-gold-gradient text-dark text-[11px] font-extrabold tracking-wider px-2.5 py-1 rounded-md inline-block mb-3 shadow-md">В НАЛИЧИИ</div>
                         <div class="flex justify-between items-end">
-                            <h3 class="text-2xl font-bold text-white">Детские</h3>
-                            <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white group-hover:bg-brand transition">
+                            <h3 class="h-display text-[1.7rem] text-white drop-shadow-sm">Детские</h3>
+                            <div class="w-11 h-11 bg-white/15 backdrop-blur-md border border-white/25 rounded-full flex items-center justify-center text-white group-hover:bg-gold-gradient group-hover:text-dark group-hover:border-transparent group-hover:scale-110 transition-all duration-300">
                                 <i class="ph-bold ph-eye text-xl"></i>
                             </div>
                         </div>
@@ -311,45 +362,46 @@
     </section>
 
     <!-- БЛОК: ПОЧЕМУ ЗА ОДИН ДЕНЬ (4 столпа УТП) -->
-    <section id="benefits" class="py-20 bg-dark text-white overflow-hidden relative">
+    <section id="benefits" class="py-24 section-graphite text-white overflow-hidden relative">
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-brand/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-14" data-reveal>
-                <span class="inline-block text-brand font-bold tracking-widest uppercase text-sm mb-3">Почему за один день</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Закрываем вопрос с мебелью сегодня</h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Кухня, шкаф и спальня — за один заезд. Всё продумано так, чтобы вы не ждали и не рисковали.</p>
+            <div class="text-center mb-16" data-reveal>
+                <div class="mb-4"><span class="gold-rule"></span></div>
+                <span class="eyebrow text-brand-light block mb-3">Почему за один день</span>
+                <h2 class="h-display text-4xl md:text-5xl text-white mb-4">Закрываем вопрос с мебелью сегодня</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg font-light">Кухня, шкаф и спальня — за один заезд. Всё продумано так, чтобы вы не ждали и не рисковали.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Столп 1 -->
-                <div data-reveal class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-warehouse"></i></div>
-                    <h3 class="text-lg font-bold mb-2">Напрямую со склада</h3>
+                <div data-reveal class="group card-dark rounded-2xl p-7 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-dark flex items-center justify-center text-3xl mb-5 shadow-lg shadow-brand/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300"><i class="ph-fill ph-warehouse"></i></div>
+                    <h3 class="text-lg font-bold mb-2 tracking-tight">Напрямую со склада</h3>
                     <p class="text-sm text-gray-400 leading-relaxed">Работаем онлайн, без наценки шоурумов — доступная цена без потери качества.</p>
                 </div>
                 <!-- Столп 2 -->
-                <div data-reveal style="--rd:120ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-seal-check"></i></div>
-                    <h3 class="text-lg font-bold mb-2">Только фабрики и цеха</h3>
+                <div data-reveal style="--rd:120ms" class="group card-dark rounded-2xl p-7 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-dark flex items-center justify-center text-3xl mb-5 shadow-lg shadow-brand/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300"><i class="ph-fill ph-seal-check"></i></div>
+                    <h3 class="text-lg font-bold mb-2 tracking-tight">Только фабрики и цеха</h3>
                     <p class="text-sm text-gray-400 leading-relaxed">Годовая гарантия. Через год мебель не развалится и не поведёт — отвечаем за качество.</p>
                 </div>
                 <!-- Столп 3 -->
-                <div data-reveal style="--rd:240ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-lightning"></i></div>
-                    <h3 class="text-lg font-bold mb-2">Всё за один заезд</h3>
+                <div data-reveal style="--rd:240ms" class="group card-dark rounded-2xl p-7 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-dark flex items-center justify-center text-3xl mb-5 shadow-lg shadow-brand/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300"><i class="ph-fill ph-lightning"></i></div>
+                    <h3 class="text-lg font-bold mb-2 tracking-tight">Всё за один заезд</h3>
                     <p class="text-sm text-gray-400 leading-relaxed">Кухня + шкаф + спальня сразу. Привозим и собираем за ~3 часа — в день заказа.</p>
                 </div>
                 <!-- Столп 4 -->
-                <div data-reveal style="--rd:360ms" class="group bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:-translate-y-1.5 transition-all duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-brand/15 text-brand flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition"><i class="ph-fill ph-hand-coins"></i></div>
-                    <h3 class="text-lg font-bold mb-2">Оплата при получении</h3>
+                <div data-reveal style="--rd:360ms" class="group card-dark rounded-2xl p-7 hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-gradient text-dark flex items-center justify-center text-3xl mb-5 shadow-lg shadow-brand/20 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300"><i class="ph-fill ph-hand-coins"></i></div>
+                    <h3 class="text-lg font-bold mb-2 tracking-tight">Оплата при получении</h3>
                     <p class="text-sm text-gray-400 leading-relaxed">0 ₸ предоплаты. Осматриваете дома, всё нравится — платите по факту. Никакого риска.</p>
                 </div>
             </div>
 
             <div class="text-center mt-12" data-reveal>
-                <a href="https://wa.me/77757029298" class="btn-shine inline-flex items-center gap-3 bg-brand hover:bg-brand-dark text-white font-bold py-4 px-8 rounded-xl transition transform hover:-translate-y-1 shadow-xl shadow-brand/30 whatsapp-btn">
+                <a href="https://wa.me/77757029298" class="btn-shine btn-gold inline-flex items-center gap-3 text-dark font-extrabold py-4 px-9 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 whatsapp-btn">
                     <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
                     Хочу закрыть вопрос сегодня
                 </a>
@@ -358,106 +410,112 @@
     </section>
 
     <!-- PROCESS -->
-    <section id="process" class="py-20 bg-white overflow-hidden">
+    <section id="process" class="py-24 bg-white overflow-hidden">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-dark mb-16" data-reveal>Как мы работаем без риска</h2>
+            <div class="text-center mb-16" data-reveal>
+                <div class="mb-4"><span class="gold-rule"></span></div>
+                <span class="eyebrow text-brand-dark block mb-3">Как мы работаем</span>
+                <h2 class="h-display text-4xl md:text-5xl text-dark">Всё честно и без риска</h2>
+            </div>
             <div class="grid md:grid-cols-4 gap-8 relative">
-                <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-gray-100 -z-10"></div>
-                <div class="relative text-center group" data-reveal><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">1</div><h3 class="text-xl font-bold mb-3">Выбор онлайн</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Отправляем вам живые фото и замеры.</p></div>
-                <div class="relative text-center group" data-reveal style="--rd:120ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">2</div><h3 class="text-xl font-bold mb-3">Быстрая доставка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Привозим сегодня — в день заказа.</p></div>
-                <div class="relative text-center group" data-reveal style="--rd:240ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">3</div><h3 class="text-xl font-bold mb-3">Осмотр и сборка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Распаковываем, собираем и проверяем при вас.</p></div>
-                <div class="relative text-center group" data-reveal style="--rd:360ms"><div class="w-16 h-16 mx-auto bg-white border-4 border-gray-100 group-hover:border-brand rounded-full flex items-center justify-center text-2xl text-gray-400 group-hover:text-brand font-bold mb-6 transition-all z-10">4</div><h3 class="text-xl font-bold mb-3">Оплата</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Если всё устраивает — оплачиваете на месте.</p></div>
+                <div class="hidden md:block absolute top-8 left-[12%] w-[76%] h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent -z-10"></div>
+                <div class="relative text-center group" data-reveal><div class="h-display w-16 h-16 mx-auto bg-cream border border-cream-deep group-hover:border-transparent group-hover:bg-gold-gradient rounded-full flex items-center justify-center text-2xl text-brand-dark group-hover:text-dark font-bold mb-6 shadow-sm group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:-translate-y-1 transition-all duration-300 z-10">1</div><h3 class="text-xl font-bold mb-3 tracking-tight">Выбор онлайн</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Отправляем вам живые фото и замеры.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:120ms"><div class="h-display w-16 h-16 mx-auto bg-cream border border-cream-deep group-hover:border-transparent group-hover:bg-gold-gradient rounded-full flex items-center justify-center text-2xl text-brand-dark group-hover:text-dark font-bold mb-6 shadow-sm group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:-translate-y-1 transition-all duration-300 z-10">2</div><h3 class="text-xl font-bold mb-3 tracking-tight">Быстрая доставка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Привозим сегодня — в день заказа.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:240ms"><div class="h-display w-16 h-16 mx-auto bg-cream border border-cream-deep group-hover:border-transparent group-hover:bg-gold-gradient rounded-full flex items-center justify-center text-2xl text-brand-dark group-hover:text-dark font-bold mb-6 shadow-sm group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:-translate-y-1 transition-all duration-300 z-10">3</div><h3 class="text-xl font-bold mb-3 tracking-tight">Осмотр и сборка</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Распаковываем, собираем и проверяем при вас.</p></div>
+                <div class="relative text-center group" data-reveal style="--rd:360ms"><div class="h-display w-16 h-16 mx-auto bg-cream border border-cream-deep group-hover:border-transparent group-hover:bg-gold-gradient rounded-full flex items-center justify-center text-2xl text-brand-dark group-hover:text-dark font-bold mb-6 shadow-sm group-hover:shadow-lg group-hover:shadow-brand/25 group-hover:-translate-y-1 transition-all duration-300 z-10">4</div><h3 class="text-xl font-bold mb-3 tracking-tight">Оплата</h3><p class="text-gray-500 text-sm leading-relaxed px-4">Если всё устраивает — оплачиваете на месте.</p></div>
             </div>
         </div>
     </section>
     <!-- БЛОК: ОТЗЫВЫ -->
-    <section id="reviews" class="py-20 bg-white">
+    <section id="reviews" class="py-24 section-cream">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-reveal>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Что говорят наши клиенты</h2>
-                <p class="text-gray-500 max-w-xl mx-auto">Мы дорожим своей репутацией. Вот реальные отзывы из нашей переписки в WhatsApp.</p>
+                <div class="mb-4"><span class="gold-rule"></span></div>
+                <span class="eyebrow text-brand-dark block mb-3">Отзывы клиентов</span>
+                <h2 class="h-display text-4xl md:text-5xl text-dark mb-4">Что говорят наши клиенты</h2>
+                <p class="text-gray-500 max-w-xl mx-auto text-lg font-light">Мы дорожим своей репутацией. Вот реальные отзывы из нашей переписки в WhatsApp.</p>
             </div>
 
             <!-- ТЕКСТОВЫЕ ОТЗЫВЫ (из WhatsApp переписок) -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
 
                 <!-- Отзыв 1 (Про спальню) -->
-                <div data-reveal class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                <div data-reveal class="bg-white p-8 rounded-3xl card-hairline relative shadow-luxe hover:shadow-luxe-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="flex text-brand mb-4">
                         <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
                     </div>
-                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                    <p class="text-gray-700 italic mb-6 leading-relaxed text-[15px]">
                         "Сәлеметсіз бе! Үлкен рахмет, жиһаз өте керемет шықты. Бізге қатты ұнады. Саудаңыздың жемісін көріңіз!"
                     </p>
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">А</div>
+                        <div class="w-11 h-11 bg-gold-gradient text-dark rounded-full flex items-center justify-center font-extrabold shadow-md shadow-brand/20 h-display">А</div>
                         <div>
                             <p class="font-bold text-sm">Клиент (Алматы)</p>
                             <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Спальный гарнитур</p>
                         </div>
                     </div>
-                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-5xl text-brand/15"></i>
                 </div>
 
                 <!-- Отзыв 2 (Про шкаф) -->
-                <div data-reveal style="--rd:120ms" class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                <div data-reveal style="--rd:120ms" class="bg-white p-8 rounded-3xl card-hairline relative shadow-luxe hover:shadow-luxe-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="flex text-brand mb-4">
                         <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
                     </div>
-                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                    <p class="text-gray-700 italic mb-6 leading-relaxed text-[15px]">
                         "Добрый вечер! Кстати, шкаф хороший, прямо очень понравился. Спасибо большое за качество и сборку!"
                     </p>
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">К</div>
+                        <div class="w-11 h-11 bg-gold-gradient text-dark rounded-full flex items-center justify-center font-extrabold shadow-md shadow-brand/20 h-display">К</div>
                         <div>
                             <p class="font-bold text-sm">Клиент</p>
                             <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Шкаф-купе</p>
                         </div>
                     </div>
-                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-5xl text-brand/15"></i>
                 </div>
 
                 <!-- Отзыв 3 (Про кухню/общий) -->
-                <div data-reveal style="--rd:240ms" class="bg-gray-50 p-8 rounded-2xl border border-gray-100 relative shadow-sm hover:shadow-md transition">
+                <div data-reveal style="--rd:240ms" class="bg-white p-8 rounded-3xl card-hairline relative shadow-luxe hover:shadow-luxe-lg hover:-translate-y-1 transition-all duration-300">
                     <div class="flex text-brand mb-4">
                         <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
                     </div>
-                    <p class="text-gray-700 italic mb-6 leading-relaxed">
+                    <p class="text-gray-700 italic mb-6 leading-relaxed text-[15px]">
                         "Рахмет сізге! Бәрі жақсы болды, тамаша, әдемі. 1 күнде бәрін бітіріп бердіңіздер. Жұмыстарыңызға береке берсін!"
                     </p>
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-brand/10 text-brand rounded-full flex items-center justify-center font-bold">М</div>
+                        <div class="w-11 h-11 bg-gold-gradient text-dark rounded-full flex items-center justify-center font-extrabold shadow-md shadow-brand/20 h-display">М</div>
                         <div>
                             <p class="font-bold text-sm">Клиент</p>
                             <p class="text-[10px] text-gray-400 uppercase tracking-widest leading-none">Заказ: Кухонный гарнитур</p>
                         </div>
                     </div>
-                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-4xl text-brand/10"></i>
+                    <i class="ph-fill ph-quotes absolute top-6 right-8 text-5xl text-brand/15"></i>
                 </div>
             </div>
 
             <!-- ВИДЕО ОТЗЫВЫ (9:16) -->
             <div class="text-center mb-10" data-reveal>
-                <h3 class="text-2xl font-extrabold text-dark">Видео-обзоры от клиентов</h3>
+                <div class="mb-4"><span class="gold-rule"></span></div><h3 class="h-display text-3xl md:text-4xl text-dark">Видео-обзоры от клиентов</h3>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Видео 1 -->
-                <div data-reveal class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                <div data-reveal class="relative aspect-[9/16] bg-graphite-deep rounded-[2.5rem] overflow-hidden shadow-luxe-lg border-[7px] border-graphite-deep ring-1 ring-brand/20 hover:ring-brand/40 transition">
                     <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-1.jpg">
                         <source src="./video/1.mp4" type="video/mp4">
                     </video>
                 </div>
 
                 <!-- Видео 2 -->
-                <div data-reveal style="--rd:120ms" class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                <div data-reveal style="--rd:120ms" class="relative aspect-[9/16] bg-graphite-deep rounded-[2.5rem] overflow-hidden shadow-luxe-lg border-[7px] border-graphite-deep ring-1 ring-brand/20 hover:ring-brand/40 transition">
                     <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-2.jpg">
                         <source src="./video/2.mp4" type="video/mp4">
                     </video>
                 </div>
 
                 <!-- Видео 3 -->
-                <div data-reveal style="--rd:240ms" class="relative aspect-[9/16] bg-dark rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-dark ring-1 ring-gray-200">
+                <div data-reveal style="--rd:240ms" class="relative aspect-[9/16] bg-graphite-deep rounded-[2.5rem] overflow-hidden shadow-luxe-lg border-[7px] border-graphite-deep ring-1 ring-brand/20 hover:ring-brand/40 transition">
                     <video class="w-full h-full object-cover" preload="metadata" playsinline controls poster="./img/video-poster-3.jpg">
                         <source src="./video/3.mp4" type="video/mp4">
                     </video>
@@ -466,14 +524,14 @@
         </div>
     </section>
     <!-- CITIES: Города доставки -->
-    <section id="cities" class="py-20 bg-gray-50 overflow-hidden">
+    <section id="cities" class="py-24 bg-white overflow-hidden">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12" data-reveal>
-                <span class="inline-flex items-center gap-2 bg-brand/10 text-brand-dark font-bold tracking-wide uppercase text-xs px-4 py-1.5 rounded-full mb-4">
+                <span class="inline-flex items-center gap-2 bg-brand/10 text-brand-dark font-bold tracking-wide uppercase text-xs px-4 py-2 rounded-full mb-5 ring-1 ring-brand/15">
                     <i class="ph-fill ph-map-pin"></i> Доставка + установка в день заказа
                 </span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-dark mb-4">Города доставки</h2>
-                <p class="text-gray-500 max-w-xl mx-auto">Привозим, собираем и устанавливаем в тот же день в 7 городах Казахстана.</p>
+                <h2 class="h-display text-4xl md:text-5xl text-dark mb-4">Города доставки</h2>
+                <p class="text-gray-500 max-w-xl mx-auto text-lg font-light">Привозим, собираем и устанавливаем в тот же день в 7 городах Казахстана.</p>
             </div>
 
             <!-- Бегущая лента городов -->
@@ -482,66 +540,73 @@
                 <div class="marquee-track flex w-max gap-4">
                     <!-- Группа 1 -->
                     <div class="flex gap-4 shrink-0 pr-4">
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
                     </div>
                     <!-- Группа 2 (дубликат для бесшовной ленты) -->
                     <div class="flex gap-4 shrink-0 pr-4" aria-hidden="true">
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
-                        <span class="shrink-0 inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Алматы</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Астана</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Караганда</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Костанай</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Уральск</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Актобе</span>
+                        <span class="shrink-0 inline-flex items-center gap-2 bg-cream card-hairline shadow-sm rounded-full px-6 py-3 font-bold text-dark"><i class="ph-fill ph-map-pin text-brand text-xl"></i>Шымкент</span>
                     </div>
                 </div>
             </div>
 
             <!-- Сетка-подтверждение (всегда читаемая) -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 max-w-5xl mx-auto">
-                <div data-reveal class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Алматы</span></div>
-                <div data-reveal style="--rd:70ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Астана</span></div>
-                <div data-reveal style="--rd:140ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Караганда</span></div>
-                <div data-reveal style="--rd:210ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Костанай</span></div>
-                <div data-reveal style="--rd:280ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Уральск</span></div>
-                <div data-reveal style="--rd:350ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Актобе</span></div>
-                <div data-reveal style="--rd:420ms" class="group flex flex-col items-center gap-2 bg-white border border-gray-100 rounded-2xl py-5 px-3 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-brand/40 transition-all"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Шымкент</span></div>
+                <div data-reveal class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Алматы</span></div>
+                <div data-reveal style="--rd:70ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Астана</span></div>
+                <div data-reveal style="--rd:140ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Караганда</span></div>
+                <div data-reveal style="--rd:210ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Костанай</span></div>
+                <div data-reveal style="--rd:280ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Уральск</span></div>
+                <div data-reveal style="--rd:350ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Актобе</span></div>
+                <div data-reveal style="--rd:420ms" class="group flex flex-col items-center gap-2 bg-cream card-hairline rounded-2xl py-5 px-3 shadow-sm hover:shadow-luxe hover:-translate-y-1 hover:border-brand/40 transition-all duration-300"><i class="ph-fill ph-map-pin text-brand text-2xl group-hover:scale-110 transition"></i><span class="font-bold text-sm text-dark">Шымкент</span></div>
             </div>
         </div>
     </section>
 
     <!-- WAREHOUSE -->
-    <section id="warehouse" class="py-20 bg-white">
+    <section id="warehouse" class="py-24 section-cream">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-dark mb-12" data-reveal>Реальность, а не картинки</h2>
+            <div class="text-center mb-12" data-reveal>
+                <div class="mb-4"><span class="gold-rule"></span></div>
+                <span class="eyebrow text-brand-dark block mb-3">Наш склад</span>
+                <h2 class="h-display text-4xl md:text-5xl text-dark">Реальность, а не картинки</h2>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <img src="./img/webp/warehouse1.webp" data-reveal loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Склад">
-                <img src="./img/webp/warehouse2.webp" data-reveal style="--rd:100ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Коробки">
-                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.44.44 (2).jpeg" data-reveal style="--rd:200ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Мебель">
-                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.51.39 (4).jpeg" data-reveal style="--rd:300ms" loading="lazy" class="rounded-xl shadow hover:shadow-xl transition duration-500 hover:scale-105 object-cover h-48 w-full" alt="Погрузка">
+                <img src="./img/webp/warehouse1.webp" data-reveal loading="lazy" class="rounded-2xl shadow-luxe hover:shadow-luxe-lg transition duration-500 hover:scale-[1.04] object-cover h-52 w-full card-hairline" alt="Склад">
+                <img src="./img/webp/warehouse2.webp" data-reveal style="--rd:100ms" loading="lazy" class="rounded-2xl shadow-luxe hover:shadow-luxe-lg transition duration-500 hover:scale-[1.04] object-cover h-52 w-full card-hairline" alt="Коробки">
+                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.44.44 (2).jpeg" data-reveal style="--rd:200ms" loading="lazy" class="rounded-2xl shadow-luxe hover:shadow-luxe-lg transition duration-500 hover:scale-[1.04] object-cover h-52 w-full card-hairline" alt="Мебель">
+                <img src="./img/склад/WhatsApp Image 2026-02-12 at 15.51.39 (4).jpeg" data-reveal style="--rd:300ms" loading="lazy" class="rounded-2xl shadow-luxe hover:shadow-luxe-lg transition duration-500 hover:scale-[1.04] object-cover h-52 w-full card-hairline" alt="Погрузка">
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer id="contacts" class="bg-dark text-gray-400 py-16">
+    <footer id="contacts" class="section-graphite text-gray-400 py-16 border-t border-white/5">
         <div class="container mx-auto px-4 grid md:grid-cols-3 gap-12">
             <div>
                 <div class="flex items-center gap-3 mb-6">
-                    <img src="img/logo.jpeg" alt="Logo" class="w-10 h-10 rounded">
-                    <span class="text-white font-bold text-xl">QAZ ZHIHAZ</span>
+                    <img src="img/logo.jpeg" alt="Logo" class="w-11 h-11 rounded-lg ring-1 ring-brand/30">
+                    <div class="leading-tight">
+                        <span class="text-white font-extrabold text-xl tracking-tight uppercase block">QAZ ZHIHAZ</span>
+                        <span class="text-[10px] uppercase tracking-[0.22em] text-brand-light/80 font-semibold">Мебельный центр</span>
+                    </div>
                 </div>
-                <p class="text-sm mb-4">Качественная мебель с доставкой по всему Казахстану.</p>
+                <p class="text-sm mb-4 font-light leading-relaxed">Качественная мебель с доставкой по всему Казахстану.</p>
                 <p class="text-xs opacity-50">© 2026 QAZ ZHIHAZ. Все права защищены.</p>
             </div>
             <div>
-                <h4 class="text-white font-bold text-lg mb-6">Контакты</h4>
+                <h4 class="h-display text-white text-xl mb-6">Контакты</h4>
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3"><i class="ph-fill ph-map-pin text-brand text-xl mt-1"></i><span>г. Алматы, ул. Уральская 29</span></li>
                     <li class="flex items-center gap-3"><i class="ph-fill ph-phone text-brand text-xl"></i><a href="tel:+77757029298" class="hover:text-white transition">+7 (775) 702-92-98</a></li>
@@ -549,10 +614,10 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-white font-bold text-lg mb-6">Мы в соцсетях</h4>
+                <h4 class="h-display text-white text-xl mb-6">Мы в соцсетях</h4>
                 <div class="flex gap-4 mb-6">
-                    <a href="https://www.instagram.com/qazzhihaz?igsh=MWF6NDZlM2p4NXV5dw%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
-                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                    <a href="https://www.instagram.com/qazzhihaz?igsh=MWF6NDZlM2p4NXV5dw%3D%3D&utm_source=qr" target="_blank" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-gold-gradient hover:text-dark hover:border-transparent hover:-translate-y-0.5 transition-all duration-300" onclick="sendEvent('click_instagram')"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-11 h-11 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-gold-gradient hover:text-dark hover:border-transparent hover:-translate-y-0.5 transition-all duration-300"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
                 </div>
             </div>
         </div>
