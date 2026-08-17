@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://qaz-zhihaz.kz/sitemap.xml
+Sitemap: https://ali-hub-01.github.io/qaz-zhihaz/sitemap.xml
