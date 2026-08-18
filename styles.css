@@ -354,6 +354,40 @@ section{position:relative}
 }
 .cat-card:hover .cat-card__meta::after{opacity:1;transform:none}
 
+/* CTA-карточка (заполняет пустую ячейку сетки, точка конверсии) */
+.cat-card--cta{
+  display:flex;min-height:280px;
+  background:linear-gradient(158deg,var(--ink-3) 0%,var(--ink) 62%);
+  border:1px solid var(--line);
+}
+.cat-card--cta:hover{box-shadow:0 34px 80px -24px rgba(181,131,18,.5)}
+.cta-card__glow{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 78% at 82% 0%,rgba(244,196,88,.24),transparent 60%);
+}
+.cta-card__inner{
+  position:relative;z-index:2;margin-top:auto;
+  display:flex;flex-direction:column;gap:11px;padding:30px 24px 24px;
+}
+.cta-card__kicker{
+  font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);
+}
+.cta-card__title{
+  font-family:var(--font-d);font-weight:600;line-height:1.02;color:#fff;
+  font-size:clamp(28px,3.2vw,40px);text-transform:uppercase;letter-spacing:.01em;
+}
+.cta-card__text{font-size:14px;line-height:1.5;color:var(--txt-dim);max-width:26ch}
+.cta-card__btn{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:6px;
+  padding:13px 20px;border-radius:999px;color:var(--ink);font-weight:800;font-size:14px;
+  background:linear-gradient(180deg,var(--gold-light),var(--gold));
+  box-shadow:0 12px 30px -10px rgba(214,158,28,.7);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.cat-card--cta:hover .cta-card__btn{transform:translateY(-2px);box-shadow:0 18px 42px -12px rgba(214,158,28,.85)}
+.cta-card__btn svg{transition:transform .35s var(--ease)}
+.cat-card--cta:hover .cta-card__btn svg{transform:translateX(3px)}
+
 @media (min-width:700px){
   .catalog__grid{grid-template-columns:repeat(6,1fr)}
   .cat-card--tall{grid-column:span 3;grid-row:span 2}
