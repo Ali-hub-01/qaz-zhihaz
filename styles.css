@@ -388,6 +388,11 @@ section{position:relative}
 .cta-card__btn svg{transition:transform .35s var(--ease)}
 .cat-card--cta:hover .cta-card__btn svg{transform:translateX(3px)}
 
+/* Мобайл (1 колонка): карточку «Не нашли своё?» — в конец, после Детских */
+@media (max-width:699px){
+  .catalog__grid .cat-card--cta{order:1}
+}
+
 @media (min-width:700px){
   .catalog__grid{grid-template-columns:repeat(6,1fr)}
   .cat-card--tall{grid-column:span 3;grid-row:span 2}
