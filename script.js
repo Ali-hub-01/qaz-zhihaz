@@ -253,7 +253,7 @@
       t.classList.toggle('is-active', t.dataset.tab === currentCat);
       t.setAttribute('aria-selected', t.dataset.tab === currentCat ? 'true' : 'false');
     });
-    galWa.href = 'https://wa.me/77757029298?text=' + encodeURIComponent(
+    galWa.href = 'https://wa.me/77785655634?text=' + encodeURIComponent(
       'Здравствуйте! Интересует мебель из категории «' + catNames[currentCat] + '» (фото ' + (currentIdx + 1) + '). Подскажите цену и наличие.'
     );
     // restart image fade
@@ -314,7 +314,7 @@
     metrika('whatsapp_click');
     metrika('form_submit');
     document.getElementById('orderDone').hidden = false;
-    window.open('https://wa.me/77757029298?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/77785655634?text=' + encodeURIComponent(msg), '_blank');
   });
 
   /* ============================================================
@@ -338,5 +338,22 @@
   ['katalog', 'otzyvy', 'zayavka'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) viewIO.observe(el);
+  });
+})();
+
+/* ============ CALL-CENTER POPUP: через 10с показать, по клику — звонок ============ */
+(function () {
+  var pop = document.getElementById('callPop');
+  if (!pop) return;
+  var btn = document.getElementById('callPopBtn');
+  var closeBtn = document.getElementById('callPopClose');
+  var PHONE = 'tel:+77785655634';
+  try { if (sessionStorage.getItem('qz_callpop_closed')) return; } catch (e) {}
+  setTimeout(function () { pop.classList.add('show'); }, 10000);
+  if (btn) btn.addEventListener('click', function () { window.location.href = PHONE; });
+  if (closeBtn) closeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    pop.classList.remove('show');
+    try { sessionStorage.setItem('qz_callpop_closed', '1'); } catch (e) {}
   });
 })();
