@@ -341,19 +341,3 @@
   });
 })();
 
-/* ============ CALL-CENTER POPUP: через 10с показать, по клику — звонок ============ */
-(function () {
-  var pop = document.getElementById('callPop');
-  if (!pop) return;
-  var btn = document.getElementById('callPopBtn');
-  var closeBtn = document.getElementById('callPopClose');
-  var PHONE = 'tel:+77785655634';
-  try { if (sessionStorage.getItem('qz_callpop_closed')) return; } catch (e) {}
-  setTimeout(function () { pop.classList.add('show'); }, 10000);
-  if (btn) btn.addEventListener('click', function () { window.location.href = PHONE; });
-  if (closeBtn) closeBtn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    pop.classList.remove('show');
-    try { sessionStorage.setItem('qz_callpop_closed', '1'); } catch (e) {}
-  });
-})();
