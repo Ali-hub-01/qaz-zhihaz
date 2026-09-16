@@ -42,12 +42,16 @@
   function closeNav() {
     burger.classList.remove('is-open');
     nav.classList.remove('is-open');
+    header.classList.remove('nav-open');
     burger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }
   burger.addEventListener('click', function () {
     var open = nav.classList.toggle('is-open');
     burger.classList.toggle('is-open', open);
+    // при открытии убираем скрытие шапки и делаем её не-containing-block (см. .header.nav-open)
+    header.classList.toggle('nav-open', open);
+    if (open) header.classList.remove('is-hidden');
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.body.style.overflow = open ? 'hidden' : '';
   });

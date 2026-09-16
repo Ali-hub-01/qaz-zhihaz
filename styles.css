@@ -74,6 +74,8 @@ section{position:relative}
   box-shadow:0 1px 0 rgba(214,158,28,.18);
 }
 .header.is-hidden{transform:translateY(-100%)}
+/* Пока открыто мобильное меню — шапка не должна быть containing block для fixed-оверлея (иначе меню «прыгает» после скролла) */
+.header.nav-open{transform:none !important;background:transparent !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important;box-shadow:none !important}
 .header__inner{
   width:min(1280px,100% - 32px);margin-inline:auto;
   height:var(--header-h);display:flex;align-items:center;gap:22px;
