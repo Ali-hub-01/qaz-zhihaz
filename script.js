@@ -9,6 +9,27 @@
     if (typeof ym === 'function') { try { ym(106888880, 'reachGoal', goal); } catch (e) {} }
   }
 
+  /* ---------- Google Ads конверсии (AW-18042242538) ----------
+     Вешаем на реальные действия, дедуп 1/сессия + анти-бот (боты кликают
+     без единого человеческого жеста - такие клики не засчитываем). */
+  var humanSeen = false;
+  ['pointermove', 'pointerdown', 'touchstart', 'scroll', 'keydown', 'wheel'].forEach(function (ev) {
+    window.addEventListener(ev, function () { humanSeen = true; }, { once: true, passive: true });
+  });
+  function isBot() { return !!navigator.webdriver || !humanSeen; }
+  function adsConv(sendTo, key) {
+    if (typeof gtag !== 'function' || isBot()) return;
+    try {
+      var k = 'qz_conv_' + key;
+      if (sessionStorage.getItem(k)) return;   // уже засчитали в этой сессии
+      sessionStorage.setItem(k, '1');
+    } catch (e) { /* приватный режим */ }
+    gtag('event', 'conversion', { 'send_to': sendTo, 'value': 1.0, 'currency': 'USD' });
+  }
+  var ADS_PHONE = 'AW-18042242538/3BOfCITWgP8cEOqLm5tD';
+  var ADS_FORM  = 'AW-18042242538/jbdQCI_th_8cEOqLm5tD';
+  var ADS_WA    = 'AW-18042242538/Cu1GCLLrh_8cEOqLm5tD';
+
   /* ---------- hero intro ---------- */
   window.addEventListener('load', function () {
     document.body.classList.add('is-loaded');
@@ -317,6 +338,7 @@
       '. Хочу доставку и сборку за 1 день. Мой телефон: ' + phone + '.';
     metrika('whatsapp_click');
     metrika('form_submit');
+    adsConv(ADS_FORM, 'form');            // Google Ads: Отправка формы
     document.getElementById('orderDone').hidden = false;
     window.open('https://wa.me/77785655634?text=' + encodeURIComponent(msg), '_blank');
   });
@@ -326,9 +348,9 @@
      ============================================================ */
   document.addEventListener('click', function (e) {
     var wa = e.target.closest('[data-wa]');
-    if (wa) metrika('whatsapp_click');
+    if (wa) { metrika('whatsapp_click'); adsConv(ADS_WA, 'wa'); }        // Google Ads: Контакт (WhatsApp)
     var ph = e.target.closest('[data-phone]');
-    if (ph) metrika('phone_click');
+    if (ph) { metrika('phone_click'); adsConv(ADS_PHONE, 'phone'); }     // Google Ads: Телефон
   });
 
   /* section view goals */
