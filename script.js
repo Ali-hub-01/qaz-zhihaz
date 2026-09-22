@@ -239,6 +239,8 @@
     detskie: makePaths('detskie', 4)
   };
   var catNames = { kuhni: 'Кухни', spalni: 'Спальни', shkafy: 'Шкафы', prikhozhie: 'Прихожие', detskie: 'Детские' };
+  // Винительный падеж для авто-текста WhatsApp при заказе из каталога
+  var catOrder = { kuhni: 'кухню', spalni: 'спальню', shkafy: 'шкаф', prikhozhie: 'прихожую', detskie: 'детскую мебель' };
   function makePaths(prefix, n) {
     var arr = [];
     for (var i = 1; i <= n; i++) arr.push('img/opt/' + prefix + '-' + String(i).padStart(2, '0') + '.webp');
@@ -279,7 +281,7 @@
       t.setAttribute('aria-selected', t.dataset.tab === currentCat ? 'true' : 'false');
     });
     galWa.href = 'https://wa.me/77785655634?text=' + encodeURIComponent(
-      'Здравствуйте! Интересует мебель из категории «' + catNames[currentCat] + '» (фото ' + (currentIdx + 1) + '). Подскажите цену и наличие.'
+      'Здравствуйте! Быстро хочу заказать ' + catOrder[currentCat] + '.'
     );
     // restart image fade
     galImg.style.animation = 'none';
