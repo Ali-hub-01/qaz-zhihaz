@@ -6,7 +6,7 @@
   var finePointer = window.matchMedia('(pointer: fine)').matches;
 
   function metrika(goal) {
-    if (typeof ym === 'function') { try { ym(106888880, 'reachGoal', goal); } catch (e) {} }
+    if (typeof ym === 'function') { try { ym(113056592, 'reachGoal', goal); } catch (e) {} }
   }
 
   /* ---------- Google Ads конверсии (AW-18042242538) ----------
