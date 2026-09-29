@@ -280,7 +280,7 @@
       t.classList.toggle('is-active', t.dataset.tab === currentCat);
       t.setAttribute('aria-selected', t.dataset.tab === currentCat ? 'true' : 'false');
     });
-    galWa.href = 'https://wa.me/77785655634?text=' + encodeURIComponent(
+    galWa.href = 'https://wa.me/77478528001?text=' + encodeURIComponent(
       'Здравствуйте! Быстро хочу заказать ' + catOrder[currentCat] + '.'
     );
     // restart image fade
@@ -342,7 +342,7 @@
     metrika('form_submit');
     adsConv(ADS_FORM, 'form');            // Google Ads: Отправка формы
     document.getElementById('orderDone').hidden = false;
-    window.open('https://wa.me/77785655634?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/77478528001?text=' + encodeURIComponent(msg), '_blank');
   });
 
   /* ============================================================
